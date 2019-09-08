@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome Login Page</title>
+</head>
+
+<body>
+    <button type="button" onclick="myGoogle()">Google Login</button>
+    <button type="button" onclick="myFaceBook()">Facebook Login</button>
+
+    <!-- <a href="/auth/facebook" 
+    target="popup" 
+    onclick="window.open('/auth/facebook','name','width=600,height=400')">
+    FB</a> -->
+    <script>
+        function myGoogle() {
+            window.open('/auth/google','name','width=600,height=400')
+            console.log('Google login flow')
+        }
+        function myFaceBook() {
+            window.open('/auth/facebook','name','width=600,height=400')
+            console.log('facebook login flow')
+        }
+    </script>
+</body>
+
+</html>
