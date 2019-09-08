@@ -87,19 +87,16 @@ passport.use('facebook',new FacebookStrategy({
   clientID: process.env['FACEBOOK_APP_ID'],
   clientSecret: process.env['FACEBOOK_APP_SECRET'],
   callbackURL: process.env['FACEBOOK_CALLBACK'],
+  enableProof: true,
   profileFields: ['id', 'displayName', 'photos', 'email','gender','last_name']
 },
-function(accessToken, refreshToken, profile, cb) {
-  console.log('Profile Data ->',profile,accessToken);
-  process.nextTick(function(){
-    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-      if(err)
-        return cb(err);
-      return cb(err, user);
-    });
-  });
-}
-));
+async (accessToken, refreshToken, profile, cb) => {
+    console.log('Access Token ->',accessToken);
+    console.log('Profile Data ->',profile);
+    return cb(null, profile);
+    }
+  )
+);
 
 
 /**
