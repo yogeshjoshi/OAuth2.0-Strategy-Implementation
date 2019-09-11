@@ -1,9 +1,28 @@
-var express = require('express'),
-    app = express(),
+var express    = require('express'),
+    app        = express(),
     bodyParser = require('body-parser'),
-    passport = require('passport');
-var path = require('path');
-const cors = require('cors');
+    passport   = require('passport');
+
+const path     = require('path');
+const cors     = require('cors');
+const https    = require('https');
+/**
+ * Using FileSystem to read the Key and Certs.
+ * Provide Certs and keys under encryption folder.
+ */
+const fs       = require('fs');
+const key      = fs.readFileSync('./secreto/secreto-api/encryption/server.CA.key');
+const cert     = fs.readFileSync( './secreto/secreto-api/encryption/server.crt' );
+/**
+ * Using Base64 to Decode the Password. To Encode plain text into Base64,Use Buffer Object or take help
+ * of online.
+ */
+const password = Buffer.from("**********",'base64').toString();
+const options  = {
+    key: key,
+    cert: cert,
+    passphrase : password
+}
 
 const CORSBypass = function (app) {
 
@@ -49,8 +68,6 @@ const CORSBypass = function (app) {
 
     app.use(allowCrossDomain);
 
-
-
 }
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -64,7 +81,8 @@ routes(app); //register the route
 
 app.use(express.static(path.join(__dirname, './secreto/secreto-testing/UI')))
 
-app.listen(process.env.PORT)
+https.createServer(options,app).listen(process.env.PORT)
+
 
 console.log('Secreto -  Rest API started on PORT', process.env.PORT);
 
