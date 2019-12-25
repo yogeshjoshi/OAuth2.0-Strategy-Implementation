@@ -17,7 +17,7 @@ const cert     = fs.readFileSync( './secreto/secreto-api/encryption/server.crt' 
  * Using Base64 to Decode the Password. To Encode plain text into Base64,Use Buffer Object or take help
  * of online.
  */
-const password = Buffer.from("**********",'base64').toString();
+const password = Buffer.from('MWF1ZzE5OTNAWUNK','base64').toString();
 const options  = {
     key: key,
     cert: cert,
